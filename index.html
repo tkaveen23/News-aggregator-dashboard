@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LankaNews AI - News Aggregator & Claim Spotter</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons for premium UI look -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Top Progress Bar (Visual micro-interaction) -->
+    <div class="progress-bar-container">
+        <div class="progress-bar" id="topProgressBar"></div>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="brand">
+                <div class="brand-logo">LN</div>
+                <div class="brand-text">
+                    <h1>LankaNews AI</h1>
+                    <p>News Aggregation & Claim Spotter</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <div class="date-badge">
+                    <i data-lucide="calendar"></i>
+                    <span id="currentDate">Wednesday, May 20, 2026</span>
+                </div>
+
+                <button class="theme-toggle-btn" id="themeToggle" title="Toggle Light/Dark Mode">
+                    <i data-lucide="sun" class="sun-icon"></i>
+                    <i data-lucide="moon" class="moon-icon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Layout -->
+    <main class="dashboard-layout">
+        <!-- Control Panel (Search, Filter, Sort) -->
+        <section class="control-panel">
+            <div class="search-wrapper">
+                <i data-lucide="search" class="search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Search headlines, keywords, or summaries...">
+                <button class="clear-search-btn" id="clearSearchBtn" style="display: none;">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <div class="filter-actions">
+                <div class="select-wrapper">
+                    <i data-lucide="newspaper" class="select-icon"></i>
+                    <select id="sourceFilter">
+                        <option value="all">All Sources</option>
+                        <!-- Dynamic options will be loaded here -->
+                    </select>
+                </div>
+
+                <div class="select-wrapper">
+                    <i data-lucide="arrow-up-down" class="select-icon"></i>
+                    <select id="sortOrder">
+                        <option value="importance" selected>Most Important</option>
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                    </select>
+                </div>
+
+                <div class="stats-badge">
+                    <span class="stats-count" id="articleCount">0</span>
+                    <span class="stats-label">Articles</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Category Navigation Tabs -->
+        <nav class="category-navigation">
+            <div class="tabs-container" id="categoryTabs">
+                <button class="tab-btn active" data-category="all">
+                    <i data-lucide="layers"></i> All News
+                </button>
+                <button class="tab-btn" data-category="Economy & Finance">
+                    <i data-lucide="trending-up"></i> Economy & Finance
+                </button>
+                <button class="tab-btn" data-category="Politics & Governance">
+                    <i data-lucide="landmark"></i> Politics & Governance
+                </button>
+                <button class="tab-btn" data-category="Weather & Disaster">
+                    <i data-lucide="cloud-lightning"></i> Weather & Disaster
+                </button>
+                <button class="tab-btn" data-category="Sports">
+                    <i data-lucide="trophy"></i> Sports
+                </button>
+                <button class="tab-btn" data-category="Law & Crime">
+                    <i data-lucide="scale"></i> Law & Crime
+                </button>
+                <button class="tab-btn" data-category="Health & Social">
+                    <i data-lucide="heart-pulse"></i> Health & Social
+                </button>
+                <button class="tab-btn" data-category="General News">
+                    <i data-lucide="globe"></i> General News
+                </button>
+            </div>
+        </nav>
+
+        <!-- Language Switcher -->
+        <nav class="language-nav">
+            <button class="lang-btn active" data-lang="English" id="langEnglish">🇬🇧 English</button>
+            <button class="lang-btn" data-lang="Tamil" id="langTamil">தமிழ்</button>
+            <button class="lang-btn" data-lang="Sinhala" id="langSinhala">සිංහල</button>
+        </nav>
+
+        <!-- Active Search/Filter Badges -->
+        <section class="active-filters-row" id="activeFiltersRow" style="display: none;">
+            <span class="filters-label">Active Filters:</span>
+            <div class="badges-container" id="activeBadgesContainer"></div>
+            <button class="reset-all-btn" id="resetFiltersBtn">Reset All</button>
+        </section>
+
+        <!-- News Grid -->
+        <section class="news-grid-container">
+            <div class="news-grid" id="newsGrid">
+                <!-- Dynamic Article Cards will be rendered here -->
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <i data-lucide="folder-open" class="empty-icon"></i>
+                <h3>No articles found</h3>
+                <p>Try adjusting your search criteria, category tab, or source filter.</p>
+                <button class="action-btn" id="emptyStateResetBtn">Clear All Filters</button>
+            </div>
+
+            <!-- Loading Skeleton -->
+            <div class="skeleton-grid" id="skeletonGrid">
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <p>&copy; 2026 <strong>LankaNews AI</strong>. News Dashboard Agent Pipeline.</p>
+    </footer>
+
+    <!-- App JavaScript -->
+    <script src="app.js"></script>
+</body>
+
+</html>
