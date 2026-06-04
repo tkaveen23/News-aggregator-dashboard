@@ -3,7 +3,7 @@
 An interactive, responsive dashboard built to visualize categorized and deduplicated news articles across English, Sinhala, and Tamil media.
 
 ## Project Demo
-🔗 **Live Link:** [Insert your Netlify Live URL here]
+🔗 **Live Link:** https://famous-stroopwafel-edbf70.netlify.app/
 
 ## Architecture Overview
 This dashboard serves as the user-facing visualization layer of a larger news aggregation system. 
